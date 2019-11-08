@@ -1,0 +1,44 @@
+### Services root .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IntelliJ project files
+.idea
+out
+gen
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Temp/local development
+temp/
+
+# Virtualenv
+.env
+.venv
+/venv/
+/venv3.6/
+/test_venv/
+version.env
+
+# Temp/local
+temp
+_local
+tests/develop.py
+
+# Build/Dist
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+local_settings.py

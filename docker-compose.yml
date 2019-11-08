@@ -1,0 +1,10 @@
+version: '3'
+
+
+services:
+  py:
+    build: .
+    command: python gen_data.py
+    volumes:
+      - ./:/project
+

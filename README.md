@@ -4,6 +4,13 @@
 В качестве корпуса текстов используется файл `data/example_text.txt` содержащий контексты цитирований
 в научных публикация.
 
+## Зависимости:
+```bash
+pip install DAWG-Python
+pip install pymorphy2
+pip install -U pymorphy2-dicts-ru
+```
+
 ## Решения
 Решение каждой из лабораторных работ представлены в виде `jupyter notebook` тетради.
 

@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import Set
 from typing import Union
 
-from bedarev_semantic.base import *
+from .base import *
 
 __all__ = [
     'WeighingAlgorithm',
@@ -24,8 +24,8 @@ class TopDownAlgorithm(WeighingAlgorithm):
         self.part_whole = part_whole
 
     @classmethod
-    def get_values(cls, obj: Union[str, SemanticObject]) -> Set[str]:
-        if isinstance(obj, str):
+    def get_values(cls, obj: Union[MorphObject, SemanticObject]) -> Set[MorphObject]:
+        if isinstance(obj, MorphObject):
             return {obj}
         all_values = set()
         for value in obj.values():
@@ -33,19 +33,16 @@ class TopDownAlgorithm(WeighingAlgorithm):
         return all_values
 
     @classmethod
-    def get_values_followers(cls, obj: Union[SemanticObject]) -> Set[str]:
+    def get_values_followers(cls, obj: SemanticObject) -> Set[MorphObject]:
         all_values = set()
         for follower in obj.followers:
-            if isinstance(obj, str):
-                all_values.add(obj)
-            else:
-                all_values |= cls.get_values(follower)
+            all_values |= cls.get_values(follower)
         return all_values
 
     def measure(self, phrase: str, semantic_vocabulary: SemanticVocabulary):
         result = set()
 
-        for search in semantic_vocabulary.search(phrase):
+        for search in semantic_vocabulary.search_semantic_object(phrase):
             if isinstance(search, Synonyms):
                 result |= {(self.synonyms, v) for v in self.get_values(search) if v != phrase}
             elif isinstance(search, GeneralPrivate):
@@ -55,4 +52,4 @@ class TopDownAlgorithm(WeighingAlgorithm):
                 result |= {(self.synonyms, v) for v in self.get_values(search) if v != phrase}
                 result |= {(self.part_whole, v) for v in self.get_values_followers(search)}
 
-        return {(res[0], '_'.join(res[1].split(' '))) for res in result}
+        return {(res[0], res[1].normal_form) for res in result}

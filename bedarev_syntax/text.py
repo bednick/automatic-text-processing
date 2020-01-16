@@ -76,7 +76,10 @@ class Sentence(object):
 
         offset = 0
         for token in tokens:
-            start = sentence.index(token, offset)
+            try:
+                start = sentence.index(token, offset)
+            except ValueError:
+                continue
             offset = start + len(token)
             self.words.append(Word.parse(token))
             self.positions.append((start, offset))

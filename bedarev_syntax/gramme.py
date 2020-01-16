@@ -1,3 +1,7 @@
+"""
+    Данные Граммемы повторяют некоторые из http://opencorpora.org/dict.php?act=gram
+"""
+
 from enum import Enum
 from typing import Set, Union
 

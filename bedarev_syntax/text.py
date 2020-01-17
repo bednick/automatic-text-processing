@@ -112,10 +112,10 @@ class Word(object):
         self.parses = None  # type: List[Parse]
 
     @classmethod
-    def parse(cls, word) -> 'Word':
+    def parse(cls, word, min_score: float = 0.01) -> 'Word':
         self = cls()
         self.raw = word
-        self.parses = morph.parse(word.lower())
+        self.parses = [form for form in morph.parse(word.lower()) if form.score > min_score]
         # self.parses = [parse for parse in self.parses if parse.normal_form != ' ']
         return self
 
